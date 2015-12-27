@@ -5,5 +5,44 @@
 		<title></title>
 	</head>
 	<body>
+		<script type="text/javascript">
+      $(function(){
+       	$(window).on('scroll', function () {
+          var scrollHeight = $("#header .buybtn").offset().top;
+          if ($(window).scrollTop() > scrollHeight) {
+            $('#floatlayer').addClass('on');
+          } else {
+            $('#floatlayer').removeClass('on');
+          }
+        });
+        $("#user-rev .users li").mouseover(function(event) {
+            var num = $(this).index();
+          $("#user-rev .users li").each(function(index, el) {
+            $(this).removeClass('current');
+          });
+          $(this).addClass('current');
+          $("#user-rev dl").each(function(index, el) {
+            $(this).removeClass('show').addClass('hidden')
+          });
+            $("#user-rev dl").eq(num).removeClass('hidden').addClass('show');
+        });
+        cycleCountdown();
+      });
+      function cycleCountdown(){
+        var startTimestamp = MApp(2.2).datetime.getTimestamp('2013-11-27 17:17:00');
+        var datetime = MApp(2.2).datetime.getCycleCountdown(startTimestamp, 4);
+        d = MApp(2.2).packages.zeroize(datetime[0], 2);
+        h = MApp(2.2).packages.zeroize(datetime[1], 2);
+        i = MApp(2.2).packages.zeroize(datetime[2], 2);
+        s = MApp(2.2).packages.zeroize(datetime[3], 2);
+        mi = MApp(2.2).packages.zeroize(datetime[4], 3);
+        $("#counttime li span").eq(0).html(h).end().eq(1).html(d).end().eq(2).html(s).end().eq(3).html(mi+"<sup>*</sup>");
+        setTimeout('cycleCountdown()', 1);
+      }
+      function goTaget(target) {
+        var Theigth = target.offset().top - 160;
+        $("html, body").animate({scrollTop: Theigth}, 'slow');
+      }
+    </script>
 	</body>
 </html>
